@@ -11,6 +11,8 @@ load_dotenv()
 
 api_id = int(os.environ["API_ID"])
 api_hash = os.environ["API_HASH"]
+session_name = os.getenv("SESSION_NAME", "my_session")
+os.makedirs(os.path.dirname(session_name) or ".", exist_ok=True)
 
 
 def show_qr(url):
@@ -32,7 +34,7 @@ async def enter_password(client):
 
 
 async def main():
-    client = TelegramClient("my_session", api_id, api_hash)
+    client = TelegramClient(session_name, api_id, api_hash)
     await client.connect()
 
     if await client.is_user_authorized():

@@ -1,0 +1,13 @@
+services:
+  allbot:
+    build: .
+    image: allbot:latest
+    environment:
+      - API_ID=${API_ID}
+      - API_HASH=${API_HASH}
+    volumes:
+      - allbot_data:/data
+    restart: unless-stopped
+
+volumes:
+  allbot_data:

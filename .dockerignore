@@ -1,0 +1,8 @@
+.venv/
+.idea/
+.git/
+.env
+*.session
+*.session-journal
+data/
+__pycache__/
