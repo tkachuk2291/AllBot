@@ -19,7 +19,7 @@ async def tag_all(event):
     await event.delete()
     mentions = []
     async for user in client.iter_participants(event.chat_id):
-        if user.bot or user.deleted:
+        if user.bot or user.deleted or user.is_self:
             continue
         name = user.first_name or "user"
         mentions.append(f'<a href="tg://user?id={user.id}">{name}</a>')
