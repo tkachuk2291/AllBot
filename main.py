@@ -11,7 +11,7 @@ api_hash = os.environ["API_HASH"]
 session_name = os.getenv("SESSION_NAME", "my_session")
 os.makedirs(os.path.dirname(session_name) or ".", exist_ok=True)
 
-client = TelegramClient(session_name, api_id, api_hash)
+client = TelegramClient(session_name, api_id, api_hash, connection_retries=-1, retry_delay=10)
 
 
 @client.on(events.NewMessage(pattern=r"^\.all$", outgoing=True))
