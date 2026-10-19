@@ -33,7 +33,7 @@ async def tag_all(event):
     for i in range(0, len(mentions), 5):
         await client.send_message(event.chat_id, " ".join(mentions[i:i+5]), parse_mode="html")
         await asyncio.sleep(1)
-    log.info("Tagged %d members", len(mentions), extra={"members": len(mentions)})
+    log.info("Tagged %d members", len(mentions), extra={"event": "stat", "stat": "tag_all", "members": len(mentions)})
 
 
 client.start()
