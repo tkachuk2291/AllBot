@@ -1,10 +1,15 @@
 import asyncio
+import logging
 import os
 
 from dotenv import load_dotenv
 from telethon import TelegramClient, events
 
+from logsetup import set_context, setup_logging
+
 load_dotenv()
+setup_logging("all-bot")
+log = logging.getLogger("all-bot")
 
 api_id = int(os.environ["API_ID"])
 api_hash = os.environ["API_HASH"]
@@ -16,6 +21,7 @@ client = TelegramClient(session_name, api_id, api_hash, connection_retries=-1, r
 
 @client.on(events.NewMessage(pattern=r"^\.all$", outgoing=True))
 async def tag_all(event):
+    set_context(chat_id=event.chat_id)
     await event.delete()
     mentions = []
     async for user in client.iter_participants(event.chat_id):
@@ -27,8 +33,9 @@ async def tag_all(event):
     for i in range(0, len(mentions), 5):
         await client.send_message(event.chat_id, " ".join(mentions[i:i+5]), parse_mode="html")
         await asyncio.sleep(1)
+    log.info("Tagged %d members", len(mentions), extra={"members": len(mentions)})
 
 
 client.start()
-print("Бот запущен. Напиши .all в любом чате.")
+log.info("Bot started, waiting for .all")
 client.run_until_disconnected()
