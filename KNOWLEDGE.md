@@ -14,6 +14,7 @@
 - Dockerfile копирует только `*.py` из корня.
 
 ## Логи
+- После `.all` пишется `event: "stat", stat: "tag_all", members: N` — админ-бот считает запуски и отмеченных людей.
 - JSON (`logsetup.py`), bot=all-bot. Логи telethon (подключения) идут на уровне INFO.
 - Ошибки в обработчиках Telethon логирует сам (`telethon.client.updates`), в контексте есть `chat_id`.
 
